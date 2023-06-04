@@ -18,36 +18,46 @@ import { useEffect, useState } from "react";
 
   const [pitches, setPitches] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8181/getpitchwithuser")
-      .then((response) => {
-        setPitches(response.data);
-      })
-      .catch((error) => {
-        console.error("Error retrieving data:", error);
-      });
-  }, []);
+useEffect(() => {
+  axios
+    .get("http://localhost:8181/getpitchwithuser")
+    .then((response) => {
+      const fetchedPitches = response.data;
+      const sortedPitches = fetchedPitches.sort((a, b) => a.id - b.id);
+      setPitches(sortedPitches);
+    })
+    .catch((error) => {
+      console.error("Error retrieving data:", error);
+    });
+}, []);
 
   console.log(pitches);
 
   const [isDeleted, setIsDeleted] = useState(false);
 
   useEffect(() => {
-    // Update the isDeleted state based on the API response
+ axios
+   .get("http://localhost:8181/getpitchwithuser")
+   .then((response) => {
+     const fetchedPitches = response.data;
+     const sortedPitches = fetchedPitches.sort((a, b) => a.id - b.id);
+     setPitches(sortedPitches);
+   })
+   .catch((error) => {
+     console.error("Error retrieving data:", error);
+   });
     if (isDeleted) {
-      // Perform any necessary actions or update UI after deletion
       console.log("APPROVE successfully");
     }
   }, [isDeleted]);
-
+  
   const handleEditClick = (id,STATE) => {
     const value = STATE ? true : false;
     axios
       .put(`http://localhost:8181/pitch/${id}/${value}`)
       .then((response) => {
         console.log(response.data); // Deleted successfully
-       setIsDeleted(!isDeleted);;
+       setIsDeleted(!isDeleted);
       })
       .catch((error) => {
         console.error(error);
@@ -56,6 +66,7 @@ import { useEffect, useState } from "react";
           console.log(`Edit clicked for pitch ID: ${id}`);
 
   };
+
 
     
     return (
@@ -74,8 +85,8 @@ import { useEffect, useState } from "react";
               <thead>
                 <tr>
                   {[
-                    " IdPitch",
-                    " PitchOwner",
+                    "Id Pitch",
+                    "PitchOwner",
                     "PitchName",
                     "Location",
                     "Capacity",
@@ -165,6 +176,7 @@ import { useEffect, useState } from "react";
                             <div className="justify-center">
                               <IconButton
                                 onClick={() => handleEditClick(id, false)}
+                                
                                 color="green"
                               >
                                 <i className="fa-solid fa-trash"></i>
