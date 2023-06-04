@@ -30,7 +30,7 @@ export function Booking() {
     const confirmed = await showConfirmationPrompt();
     if (confirmed) {
       try {
-        await axios.put(`http://localhost:4000/bookings/${id}`);
+        await axios.put(`http://localhost:8181/bookings/${id}`);
           getbookings()// Refresh data after deletion
       } catch (error) {
         console.error(error);
@@ -55,7 +55,7 @@ export function Booking() {
 
   const getbookings = () => {
 
-    axios.get('http://localhost:4000/bookings')
+    axios.get('http://localhost:8181/bookings')
       .then(response => {
         setbookings(response.data.rows)
       })
@@ -113,7 +113,7 @@ export function Booking() {
             <tbody>
               {bookings.map(
                 ({ id, name, user_id, date, time, phone }, key) => {
-                  const className = `py-3 px-5 ${key === bookingData.length - 1
+                  const className = `py-3 px-5 ${key === bookings.length - 1
                     ? ""
                     : "border-b border-blue-gray-50"
                     }`;
