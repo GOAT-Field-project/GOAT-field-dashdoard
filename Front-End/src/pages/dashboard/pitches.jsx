@@ -11,34 +11,78 @@ import {
     IconButton
   } from "@material-tailwind/react";
   import { PitchesData } from "@/data";
+  import axios from "axios";
+import { useEffect, useState } from "react";
   export function Pitches() {
+  ;
+
+  const [pitches, setPitches] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8181/getpitchwithuser")
+      .then((response) => {
+        setPitches(response.data);
+      })
+      .catch((error) => {
+        console.error("Error retrieving data:", error);
+      });
+  }, []);
+
+  console.log(pitches);
+
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  useEffect(() => {
+    // Update the isDeleted state based on the API response
+    if (isDeleted) {
+      // Perform any necessary actions or update UI after deletion
+      console.log("APPROVE successfully");
+    }
+  }, [isDeleted]);
+
+  const handleEditClick = (id,STATE) => {
+    const value = STATE ? true : false;
+    axios
+      .put(`http://localhost:8181/pitch/${id}/${value}`)
+      .then((response) => {
+        console.log(response.data); // Deleted successfully
+       setIsDeleted(!isDeleted);;
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error and display an appropriate message to the user
+      });
+          console.log(`Edit clicked for pitch ID: ${id}`);
+
+  };
+
+    
     return (
-      <div className="mt-12 mb-8 flex flex-col gap-12 " >
+      <div className="mt-12 mb-8 flex flex-col gap-12 ">
         <Card>
           <CardHeader variant="gradient" color="green" className="mb-8 p-6">
-          <div className="grid grid-cols-6 gap-x-8 justify-end">
-            <Typography variant="h6" color="white">
-              Pitches Table
-            </Typography>
-            
-            <Typography
-                          as="a"
-                          href='pitches/add'
-                          className="text-xs font-semibold text-blue-gray-600 justify-center"
-                        >
-  <Button color="blue-gray" size="sm">
-    Add Pitch
-  </Button>
-  </Typography>
+            <div className="grid grid-cols-6 justify-end gap-x-8">
+              <Typography variant="h6" color="white">
+                Pitches Table
+              </Typography>
             </div>
           </CardHeader>
-          
+
           <CardBody className="overflow-x-scroll px-0 pt-0 pb-2">
-            
             <table className="w-full min-w-[640px] table-auto">
               <thead>
                 <tr>
-                  {[" IdPitch", " PitchOwner", "PitchName", "Pictures","Capacity","Discription","State","Action"].map((el) => (
+                  {[
+                    " IdPitch",
+                    " PitchOwner",
+                    "PitchName",
+                    "Location",
+                    "Capacity",
+                    "Price",
+                    "State",
+                    "Action",
+                  ].map((el) => (
                     <th
                       key={el}
                       className="border-b border-blue-gray-50 py-3 px-5 text-left"
@@ -54,90 +98,79 @@ import {
                 </tr>
               </thead>
               <tbody>
-                {PitchesData.map(
-                  ({  IdPitch, PitchOwner, PitchName, Pictures,Capacity,Discription ,State}, key) => {
-                    const className = `py-3 px-5 ${
+                {pitches.map(
+                  (
+                    { id, user_name, name, location, size, price, deleted },
+                    key
+                  ) => {
+                    const className = `py-3 px-5  ${
                       key === PitchesData.length - 1
                         ? ""
                         : "border-b border-blue-gray-50"
                     }`;
-  
+
                     return (
-                      <tr key={IdPitch}>
+                      <tr key={id}>
                         <td className={className}>
-                          <div className="flex items-center gap-4">                          
+                          <div className="flex items-center gap-4">
                             <div>
-                            <Typography className="text-xs font-normal text-blue-gray-500">
-                                {IdPitch}
+                              <Typography className="text-xs font-normal text-blue-gray-500">
+                                {id}
                               </Typography>
-                            
-                             
                             </div>
                           </div>
                         </td>
-                         <td className={className}>
+                        <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {PitchOwner}
+                            {user_name}
                           </Typography>
-                          
                         </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {PitchName}
+                            {name}
                           </Typography>
-                          
-                        </td> 
+                        </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {Pictures}
+                            {location}
                           </Typography>
-                          
-                        </td> 
+                        </td>
                         <td className={className}>
                           <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {Capacity}
+                            {size}
                           </Typography>
-                          
-                        </td> 
+                        </td>
                         <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {Discription}
+                          <Typography className="ml-2 text-xs font-semibold text-blue-gray-600">
+                            {price}
                           </Typography>
-                          
-                        </td> 
+                        </td>
                         <td className={className}>
-                          <Typography className="text-xs font-semibold text-blue-gray-600">
-                            {State}
+                          <Typography className="text-xs font-semibold  text-blue-gray-600">
+                            {deleted ? "APPROVED" : "NOT APPROVED"}
                           </Typography>
-                          
-                        </td> 
-                         
+                        </td>
+
                         <td className={className}>
-                          <div className="grid grid-cols-2 gap-2 justify-center">
+                          <div className="grid grid-cols-2 justify-center gap-2">
                             <div className="justify-center">
-                          <Typography
-                            as="a"
-                            href={'pitches/edit/'+ IdPitch}
-                            className="text-xs font-semibold text-blue-gray-600 justify-center"
-                          >                          
-                           <IconButton ripple={true} color="green">
-                           <i className="fa-regular fa-pen-to-square"></i>
-                           </IconButton>
-                          </Typography>
+                              <IconButton
+                                className="mr-4 xl:mr-0"
+                                color="green"
+                                onClick={() => handleEditClick(id, true)}
+                              >
+                                <i className="fa-regular fa-pen-to-square"></i>
+                              </IconButton>
+                            </div>
+                            <div className="justify-center">
+                              <IconButton
+                                onClick={() => handleEditClick(id, false)}
+                                color="green"
+                              >
+                                <i className="fa-solid fa-trash"></i>
+                              </IconButton>
+                            </div>
                           </div>
-                          <div className="justify-center">
-                          <Typography
-                            as="a"
-                            href={'pitches/delete/'+ IdPitch}
-                            className="text-xs font-semibold text-blue-gray-600 justify-center"
-                          >
-  
-                           <IconButton ripple={true} color="green">
-                           <i className="fa-solid fa-trash" ></i>
-                           </IconButton>
-                          </Typography>
-                          </div>
-                           </div>
                         </td>
                       </tr>
                     );
