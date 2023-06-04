@@ -34,6 +34,24 @@ export function Users() {
 
 
 
+  const handleUpdate = (id, role) => {
+
+
+    axios.put('http://localhost:8181/mais/' + id, {
+      id: id,
+      role: role
+
+    })
+      .then(function (response) {
+        window.location = '/dashboard/Users'
+
+      })
+      .catch(function (error) {
+      });
+
+
+  }
+
 
 
 
@@ -110,10 +128,10 @@ export function Users() {
                     </td>
                     <td className={className}>
                       <div className="grid grid-cols-2 gap-2 justify-center">
-                        <div className="justify-center">
+                        <div className="justify-center" onClick={() => handleUpdate(user_id, role)}>
                           <Typography
-                            as="a"
-                            href={'Users/edit/' + user_id}
+
+
                             className="text-xs font-semibold text-blue-gray-600 justify-center"
                           >
                             <IconButton ripple={true} color="green">
