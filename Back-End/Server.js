@@ -8,7 +8,8 @@ const port = 8181;
 app.use(cors());
 app.use(express.json());
 
-// Get users data
+// ? -------------------------------- mais -------------------------------- 
+//! Get users data
 app.get('/usersData', async (req, res) => {
     try {
         const allUsers = await pool.query("SELECT * FROM users");
@@ -19,7 +20,7 @@ app.get('/usersData', async (req, res) => {
     }
 });
 
-// Add user data
+//! Add user data
 app.post('/addUser', async (req, res) => {
     try {
         const { user_name, user_email, user_password, role } = req.body;
@@ -36,30 +37,22 @@ app.post('/addUser', async (req, res) => {
     }
 });
 
-// Update user data
-app.put("/updateUser/:id", async (req, res) => {
+
+// ! soft delete users
+app.put('/deleteUser/:id', async (req, res) => {
+    const { id } = req.params;
+
     try {
-        const { id } = req.params;
-        const { user_name, user_email, user_password, role } = req.body;
-
-        const updateUser = await pool.query(
-            "UPDATE users SET user_name = $1, user_email = $2, user_password = $3, role = $4 WHERE user_id = $5 RETURNING *",
-            [user_name, user_email, user_password, role, id]
-        );
-
-        if (updateUser.rows.length === 0) {
-            return res.status(404).json({ error: "User not found." });
-        }
-
-        res.json(updateUser.rows[0]);
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ error: "An error occurred while updating the user." });
+        // Instead of deleting the user, update the 'deleted' column to indicate it's soft deleted
+        await pool.query("UPDATE users SET deleted = true WHERE user_id = $1", [id]);
+        res.json('Your user has been soft deleted.');
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json('An error occurred while soft deleting the user.');
     }
 });
 
-
-// Update a Specific Record
+//! Update a Specific Record
 app.put('/mais/:user_id', async function (req, res) {
     try {
         const { user_id } = req.params;
@@ -77,22 +70,86 @@ app.put('/mais/:user_id', async function (req, res) {
     catch (err) { console.log(err.message); }
 });
 
+// ! contact us form 
 
-// ! delete users
-app.put('/deleteUser/:id', async (req, res) => {
-    const { id } = req.params;
+// get contact data
+app.get('/getContact', async (req, res) => {
+    try {
+        const allContactInfo = await pool.query("SELECT * FROM contactus")
+        res.json(allContactInfo.rows)
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+
+// ! update contact information
+// 
+
+
+app.put('/contactus00/:id', async function (req, res) {
 
     try {
-        // Instead of deleting the user, update the 'deleted' column to indicate it's soft deleted
-        await pool.query("UPDATE users SET deleted = true WHERE user_id = $1", [id]);
-        res.json('Your user has been soft deleted.');
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).json('An error occurred while soft deleting the user.');
+        const { id } = req.params;
+        const { email, phone_number, location_link } = req.body;
+
+        const user = await pool.query("UPDATE contactus SET email = $1 ,phone_number = $2 , location_link = $3 WHERE id = $4 ", [email, phone_number, location_link, id]);
+        res.json(user.rows);
+        console.log(email)
     }
+    catch (err) {
+        console.log(err.message);
+    }
+
 });
 
 
+// ? -------------------------------- mais -------------------------------- 
+
+
+// * -------------------------------- majd --------------------------------
+// ! get pitch
+app.get('/bookings', async (req, res) => {
+
+    try {
+
+        const allbookings = await pool.query("SELECT * FROM bookings WHERE deleted = false ")
+        res.json(allbookings)
+
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+// ! pitch update
+app.put('/bookings/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+
+        const softdeletebooking = await pool.query("UPDATE bookings SET deleted = true WHERE id=$1", [id])
+        res.json('booking is deleted')
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+//! pitch delete
+app.delete('pitch/:id', async (req, res) => {
+    try {
+
+        await pool.query("DELETE FROM pitch WHERE id =$1 ", [id])
+        res.json('your pitch is declained ')
+    } catch (err) {
+        console.error(err.message);
+
+    }
+})
+// * -------------------------------- majd --------------------------------
+
+
+
+// ? ----------------------------- wesam & mufid --------------------------
 // get pitches
 app.get("/getdatas", (req, res) => {
     const query = "SELECT * FROM pitch;";
@@ -156,6 +213,7 @@ app.put("/pitch/:id/:isDeleted", async (req, res) => {
     }
 });
 
+// ? ----------------------------- wesam & mufid --------------------------
 
 
 
