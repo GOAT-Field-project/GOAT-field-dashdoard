@@ -54,24 +54,26 @@ axios
 
 const handleEditClick = async (id, STATE) => {
   const value = STATE ? true : false;
+      if (!STATE) {
+    const confirmed = await showConfirmationPrompt();
   
-  // Show confirmation prompt
-  const confirmed = await showConfirmationPrompt();
-  
-  if (confirmed) {
-    axios
-      .put(`http://localhost:8181/pitch/${id}/${value}`)
-      .then((response) => {
-        console.log(response.data); // Deleted successfully
-        setIsDeleted(!isDeleted);
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle error and display an appropriate message to the user
-      });
-      
-    console.log(`Edit clicked for pitch ID: ${id}`);
+    if (!confirmed) {
+      return; 
+    }
   }
+  
+  axios
+    .put(`http://localhost:8181/pitch/${id}/${value}`)
+    .then((response) => {
+      console.log(response.data); 
+      setIsDeleted(!isDeleted);
+    })
+    .catch((error) => {
+      console.error(error);
+    
+    });
+  
+  console.log(`Edit clicked for pitch ID: ${id}`);
 };
 const showConfirmationPrompt = () => {
   return new Promise((resolve) => {
