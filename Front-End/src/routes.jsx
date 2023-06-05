@@ -6,7 +6,7 @@ import {
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications,Users,EditUsers, AddPitches } from "@/pages/dashboard";
+import { Home,Users,EditUsers, AddPitches } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 import AddUsers from "./pages/dashboard/AddUsers";
 import Pitches from "./pages/dashboard/pitches";
@@ -27,18 +27,18 @@ export const routes = [
         path: "/home",
         element: <Home />,
       },
-      {
-        icon: <UserCircleIcon {...icon} />,
-        name: "profile",
-        path: "/profile",
-        element: <Profile />,
-      },
-      {
-        icon: <TableCellsIcon {...icon} />,
-        name: "tables",
-        path: "/tables",
-        element: <Tables />,
-      },
+      // {
+      //   icon: <UserCircleIcon {...icon} />,
+      //   name: "profile",
+      //   path: "/profile",
+      //   element: <Profile />,
+      // },
+      // {
+      //   icon: <TableCellsIcon {...icon} />,
+      //   name: "tables",
+      //   path: "/tables",
+      //   element: <Tables />,
+      // },
       {
         icon: <TableCellsIcon {...icon} />,
         name: "Users",
@@ -57,12 +57,12 @@ export const routes = [
         path: "/booking",
         element: <Booking />,
       },
-      {
-        icon: <BellIcon {...icon} />,
-        name: "notifactions",
-        path: "/notifactions",
-        element: <Notifications />,
-      },
+      // {
+      //   icon: <BellIcon {...icon} />,
+      //   name: "notifactions",
+      //   path: "/notifactions",
+      //   element: <Notifications />,
+      // },
     ],
   },
   {

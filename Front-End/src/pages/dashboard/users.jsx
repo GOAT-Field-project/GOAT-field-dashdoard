@@ -31,7 +31,7 @@ export function Users() {
         console.error('Error fetching users data:', error);
       });
   }, []);
-
+console.log(usersData);
 
 
   const handleUpdate = (id, role) => {
@@ -59,7 +59,7 @@ export function Users() {
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12 ">
       <Card>
-        <CardHeader variant="gradient" acolor="green" className="mb-8 p-6">
+        <CardHeader variant="gradient" color="green" className="mb-8 p-6">
           <div className="grid grid-cols-6 gap-x-8 justify-end">
             <Typography variant="h6" color="white">
               Users Table
