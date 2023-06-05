@@ -34,30 +34,97 @@ export function Users() {
     getUsersData();
   }, []);
 
-  const handleUpdate = (id, role) => {
-    axios.put(`http://localhost:8181/mais/${id}`, {
-      id: id,
-      role: role
-    })
-      .then(function (response) {
-        window.location = '/dashboard/Users';
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  };
-
-  const handleDelete = async (user_id) => {
-    const confirmed = await showConfirmationPrompt();
+  const handleUpdate = async (id, role) => {
+    const confirmed = await showUpdatePrompt();
     if (confirmed) {
       try {
-        await axios.put(`http://localhost:8181/deleteUser/${user_id}`);
-        getUsersData(); // Refresh data after deletion
+        await axios.put(`http://localhost:8181/mais/${id}`, {
+          id: id,
+          role: role
+        });
+        getUsersData(); // Refresh data after update
       } catch (error) {
         console.error(error);
       }
     }
   };
+
+
+  // const handleUpdate = async (id, role) => {
+  //   const confirmed = await showUpdatePrompt();
+  //   if (confirmed) {
+  //     try {
+  //       const response = await axios.put(`http://localhost:8181/mais/${id}`, {
+  //         id: id,
+  //         role: role
+  //       });
+  //       // Check if the update was successful
+  //       if (response.status === 200) {
+  //         // Update the role for the specific user in the state immediately
+  //         setUsersData(prevData => {
+  //           return prevData.map(user => {
+  //             if (user.user_id === id) {
+  //               return { ...user, role: role };
+  //             }
+  //             return user;
+  //           });
+  //         });
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  // };
+
+
+
+  const showUpdatePrompt = () => {
+    return new Promise((resolve) => {
+      Swal.fire({
+        title: "Are you sure you want to change the user state?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, change it!",
+      }).then((result) => {
+        resolve(result.isConfirmed);
+      });
+    });
+  };
+
+
+
+  // Update the handleDelete function to remove the deleted user from the state
+  const handleDelete = async (user_id) => {
+    const confirmed = await showConfirmationPrompt();
+    if (confirmed) {
+      try {
+        await axios.put(`http://localhost:8181/deleteUser/${user_id}`);
+        // Remove the deleted user from the state
+        setUsersData(prevData => prevData.filter(user => user.user_id !== user_id));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  // Update the getUsersData function to exclude soft-deleted users
+  useEffect(() => {
+    axios
+      .get('http://localhost:8181/usersData')
+      .then((response) => {
+        // Filter out soft-deleted users
+        const filteredData = response.data.filter(user => !user.deleted);
+        // Update the usersData state with the filtered data
+        setUsersData(filteredData);
+      })
+      .catch((error) => {
+        console.error('Error fetching users data:', error);
+      });
+  }, []);
+
+
 
   const showConfirmationPrompt = () => {
     return new Promise((resolve) => {
@@ -69,10 +136,15 @@ export function Users() {
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
-        resolve(result.isConfirmed);
+        if (result.isConfirmed) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
       });
     });
   };
+
 
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">

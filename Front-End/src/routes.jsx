@@ -6,13 +6,13 @@ import {
   ArrowRightOnRectangleIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/solid";
-import { Home,Users,EditUsers, AddPitches } from "@/pages/dashboard";
+import { Home, Users, EditUsers, AddPitches } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
 import AddUsers from "./pages/dashboard/AddUsers";
 import Pitches from "./pages/dashboard/pitches";
 import EditPitche from "./pages/dashboard/EditPitche";
 import Booking from "./pages/dashboard/booking";
-
+import ContactUs from "./pages/dashboard/ContactUs";
 const icon = {
   className: "w-5 h-5 text-inherit",
 };
@@ -57,6 +57,12 @@ export const routes = [
         path: "/booking",
         element: <Booking />,
       },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "Contact Us",
+        path: "/ContactUs",
+        element: <ContactUs />,
+      },
       // {
       //   icon: <BellIcon {...icon} />,
       //   name: "notifactions",
@@ -75,7 +81,7 @@ export const routes = [
         path: "/sign-in",
         element: <SignIn />,
       },
-      
+
     ],
   },
   {
@@ -104,7 +110,7 @@ export const routes = [
         icon: <TableCellsIcon {...icon} />,
         name: "Edit pitch",
         path: "/pitches/edit/:id",
-        element: <EditPitche/>,
+        element: <EditPitche />,
       },
     ],
   },
