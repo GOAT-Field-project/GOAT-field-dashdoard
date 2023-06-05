@@ -78,6 +78,82 @@ app.put('/mais/:user_id', async function (req, res) {
 });
 
 
+// ! delete users
+app.put('/deleteUser/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Instead of deleting the user, update the 'deleted' column to indicate it's soft deleted
+        await pool.query("UPDATE users SET deleted = true WHERE user_id = $1", [id]);
+        res.json('Your user has been soft deleted.');
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json('An error occurred while soft deleting the user.');
+    }
+});
+
+
+// get pitches
+app.get("/getdatas", (req, res) => {
+    const query = "SELECT * FROM pitch;";
+
+    pool
+        .query(query)
+        .then((result) => {
+            const pitches = result.rows.map((pitch) => {
+                const base64ImageDatas = pitch.images.map((imageData) =>
+                    Buffer.from(imageData).toString("base64")
+                );
+                return { ...pitch, images: base64ImageDatas };
+            });
+            res.json(pitches);
+        })
+        .catch((error) => {
+            console.error("Error retrieving data:", error);
+            const errorMessage = "Error retrieving data";
+            res.status(500).json({ error: errorMessage });
+        });
+});
+// get pitch with user
+app.get("/getpitchwithuser", (req, res) => {
+    const query =
+        "SELECT p.id, p.name, p.price, p.size, p.details, p.description, p.location, p.deleted, u.user_name " +
+        "FROM pitch p " +
+        "JOIN users u ON p.provider_id = u.user_id";
+
+    pool
+        .query(query)
+        .then((result) => {
+            const data = result.rows;
+            res.json(data);
+        })
+        .catch((error) => {
+            console.error("Error retrieving data:", error);
+            res.status(500).send("Error retrieving data");
+        });
+});
+
+// APPROVE
+app.put("/pitch/:id/:isDeleted", async (req, res) => {
+    const { id, isDeleted } = req.params;
+
+    try {
+        const client = await pool.connect();
+        await client.query("BEGIN");
+
+        const updateQuery = "UPDATE pitch SET deleted = $1 WHERE id = $2";
+        await client.query(updateQuery, [isDeleted, id]);
+
+        await client.query("COMMIT");
+        res.status(200).json({ message: "Update successful" });
+    } catch (error) {
+        await client.query("ROLLBACK");
+        console.error("Error updating pitch:", error);
+        res
+            .status(500)
+            .json({ error: "An error occurred while updating the pitch" });
+    }
+});
 
 
 

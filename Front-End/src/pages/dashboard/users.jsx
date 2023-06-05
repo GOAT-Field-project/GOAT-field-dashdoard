@@ -14,50 +14,68 @@ import {
 } from "@material-tailwind/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { Link } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 export function Users() {
-
-
-  // ! get users data
+  // State to store users data
   const [usersData, setUsersData] = useState([]);
+
+  // Fetch users data from the server
+  const getUsersData = async () => {
+    try {
+      const response = await axios.get('http://localhost:8181/usersData');
+      setUsersData(response.data);
+    } catch (error) {
+      console.error('Error fetching users data:', error);
+    }
+  };
+
   useEffect(() => {
-    // Make an API call to fetch users data
-    axios.get('http://localhost:8181/usersData')
-      .then(response => {
-        // Update the usersData state with the received data
-        setUsersData(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching users data:', error);
-      });
+    getUsersData();
   }, []);
 
-
-
   const handleUpdate = (id, role) => {
-
-
-    axios.put('http://localhost:8181/mais/' + id, {
+    axios.put(`http://localhost:8181/mais/${id}`, {
       id: id,
       role: role
-
     })
       .then(function (response) {
-        window.location = '/dashboard/Users'
-
+        window.location = '/dashboard/Users';
       })
       .catch(function (error) {
+        console.error(error);
       });
+  };
 
+  const handleDelete = async (user_id) => {
+    const confirmed = await showConfirmationPrompt();
+    if (confirmed) {
+      try {
+        await axios.put(`http://localhost:8181/deleteUser/${user_id}`);
+        getUsersData(); // Refresh data after deletion
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
 
-  }
-
-
-
-
+  const showConfirmationPrompt = () => {
+    return new Promise((resolve) => {
+      Swal.fire({
+        title: "Are you sure you want to soft delete this user?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        resolve(result.isConfirmed);
+      });
+    });
+  };
 
   return (
-    <div className="mt-12 mb-8 flex flex-col gap-12 ">
+    <div className="mt-12 mb-8 flex flex-col gap-12">
       <Card>
         <CardHeader variant="gradient" acolor="green" className="mb-8 p-6">
           <div className="grid grid-cols-6 gap-x-8 justify-end">
@@ -65,8 +83,8 @@ export function Users() {
               Users Table
             </Typography>
             <Typography
-              as="a"
-              href='Users/add'
+              as={Link}
+              to="/dashboard/Users/add"
               className="text-xs font-semibold text-blue-gray-600 justify-center"
             >
               <Button color="blue-gray" size="sm">
@@ -80,7 +98,7 @@ export function Users() {
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
-                {["id", "Name", "Email", "Role", "Action"].map((el) => (
+                {["ID", "Name", "Email", "Role", "Action"].map((el) => (
                   <th
                     key={el}
                     className="border-b border-blue-gray-50 py-3 px-5 text-left"
@@ -129,26 +147,16 @@ export function Users() {
                     <td className={className}>
                       <div className="grid grid-cols-2 gap-2 justify-center">
                         <div className="justify-center" onClick={() => handleUpdate(user_id, role)}>
-                          <Typography
-
-
-                            className="text-xs font-semibold text-blue-gray-600 justify-center"
-                          >
+                          <Typography className="text-xs font-semibold text-blue-gray-600 justify-center">
                             <IconButton ripple={true} color="green">
                               <i className="fa-regular fa-pen-to-square"></i>
                             </IconButton>
                           </Typography>
                         </div>
                         <div className="justify-center">
-                          <Typography
-                            as="a"
-                            href={'Users/delete/' + user_id}
-                            className="text-xs font-semibold text-blue-gray-600 justify-center"
-                          >
-                            <IconButton ripple={true} color="green">
-                              <i className="fa-solid fa-trash"></i>
-                            </IconButton>
-                          </Typography>
+                          <IconButton color="red" onClick={() => handleDelete(user_id)}>
+                            <i className="fa-solid fa-trash"></i>
+                          </IconButton>
                         </div>
                       </div>
                     </td>
