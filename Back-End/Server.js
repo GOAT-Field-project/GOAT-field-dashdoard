@@ -101,6 +101,7 @@ app.get("/getdatas", (req, res) => {
         .query(query)
         .then((result) => {
             const pitches = result.rows.map((pitch) => {
+                //  buffer built in library 
                 const base64ImageDatas = pitch.images.map((imageData) =>
                     Buffer.from(imageData).toString("base64")
                 );
