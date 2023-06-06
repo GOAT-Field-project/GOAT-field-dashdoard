@@ -107,14 +107,15 @@ const showConfirmationPrompt = () => {
             <thead>
               <tr>
                 {[
-                  "Id Pitch",
-                  "PitchOwner",
-                  "PitchName",
+                  "field_id",
+                  "field_owner",
+                  "field_name",
                   "Location",
-                  "Capacity",
+                  "field_size",
                   "Price",
                   "State",
                   "Action",
+                  
                 ].map((el) => (
                   <th
                     key={el}
