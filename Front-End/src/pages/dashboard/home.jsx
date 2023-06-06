@@ -76,7 +76,7 @@ export function Home() {
             </svg>
             {usersData.length}
           </p>
-          <button className="mt-6 h-10 w-28  rounded-lg bg-blue-500 text-sm font-bold text-white shadow-lg hover:bg-blue-700">
+          <button className="mt-6 h-10 w-28  rounded-lg bg-green-500 text-sm font-bold text-white shadow-lg hover:bg-green-700">
             <Link to={"/dashboard/Users"}>More info</Link>
           </button>
         </div>
@@ -123,12 +123,13 @@ export function Home() {
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
+              
             >
               <path d="M5 10l7-7m0 0l7 7m-7-7v18" />
             </svg>
             {pitches.length}
           </p>
-          <button className="mt-6 h-10 w-28  rounded-lg bg-blue-500 text-sm font-bold text-white shadow-lg hover:bg-blue-700">
+          <button className="mt-6 h-10 w-28  rounded-lg bg-green-500 text-sm font-bold text-white shadow-lg hover:bg-green-700">
             <Link to={"/dashboard/pitches"}>More info</Link>
           </button>
         </div>
@@ -156,7 +157,7 @@ export function Home() {
             </svg>
             {bookings.length}
           </p>
-          <button className="mt-6 h-10 w-28  rounded-lg bg-blue-500 text-sm font-bold text-white shadow-lg hover:bg-blue-700">
+          <button className="mt-6 h-10 w-28  rounded-lg bg-green-500 text-sm font-bold text-white shadow-lg hover:bg-green-700">
             <Link to={"/dashboard/booking"}>More info</Link>
           </button>
         </div>
