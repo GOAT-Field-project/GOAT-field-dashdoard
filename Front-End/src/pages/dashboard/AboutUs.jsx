@@ -20,30 +20,27 @@ export function AboutUs() {
   const [github, setGithub] = useState('');
   const [linkedin, setLinkedin] = useState('');
 
-  const getTeamData = async () => {
-    try {
-      const response = await fetch('http://localhost:8181/getTeam');
-      const data = await response.json();
-      // Update the state with the received data
-      setName(data.name);
-      setRole(data.role);
-      setGithub(data.github);
-      setLinkedin(data.linkedin);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+
+  const [about, setAbout] = useState([])
 
   useEffect(() => {
-    getTeamData();
-  }, []);
+    axios.get('http://localhost:8181/getTeam')
+      .then((response) => {
+        setAbout(response.data);
+        console.log(response.data)
+      })
+      .catch((error) => console.log(error.message))
+  }, [])
 
-  const handleTeam = (e) => {
+
+
+  const handleTeam = (e, userInfo) => {
     e.preventDefault();
     console.log(name, role, github, linkedin);
-
+    console.log(userInfo)
+    let x = userInfo.id
     axios
-      .put(`http://localhost:8181/editTeam/:id`, {
+      .put(`http://localhost:8181/editTeam/${x}`, {
         name: name,
         role: role,
         github: github,
@@ -56,8 +53,6 @@ export function AboutUs() {
         console.log(error);
       });
   };
-
-
 
 
 
@@ -104,13 +99,6 @@ export function AboutUs() {
                 Welcome to our website, the leading platform for booking sports fields and playgrounds. We strive to provide a seamless and convenient experience for sports enthusiasts and athletes to reserve their preferred venues.</p>
               <input type="text" placeholder="edit vision here" className="border border-black border-solid border-radius-25 rounded-lg" />
 
-
-              {/* <a
-                href="/ContactUS"
-                className="px-4 py-3 text-gray-50 transition-all transform bg-[#82CD47] rounded-[80px] hover:bg-[#54B435] dark:hover:text-gray-100 dark:text-gray-100 "
-              >
-                Contact Us
-              </a> */}
             </div>
           </div>
         </div>
@@ -118,146 +106,80 @@ export function AboutUs() {
 
 
 
-      {/* <form onSubmit={handleTeam}>
+      <div>
         <div className="container flex justify-center mx-auto pt-16">
           <div>
             <p className="text-gray-500 text-lg text-center font-normal pb-3">Meet our team</p>
             <h1 className="xl:text-4xl text-3xl text-center text-gray-800 font-extrabold pb-6 sm:w-4/6 w-5/6 mx-auto">Those who work behind the scene</h1>
           </div>
         </div>
-        <div className="w-full bg-gray-100 px-10 pt-10" >
-          <div className="container mx-auto">
-            <div className="lg:flex md:flex sm:flex items-center xl:justify-between flex-wrap md:justify-around sm:justify-around lg:justify-around">
-              <div className="xl:w-1/3 sm:w-3/4 md:w-2/5 relative mt-16 mb-32 sm:mb-24 xl:max-w-sm lg:w-2/5">
-                <div className="rounded overflow-hidden shadow-md bg-white">
-                  <div className="absolute -mt-20 w-full flex justify-center"></div>
-                  <div className="px-6 mt-16">
-                    <div className="font-bold text-3xl text-center pb-1"></div>
-                    <p className="text-gray-800 text-sm text-center"></p>
-                    <p className="text-center text-gray-600 text-base pt-3 font-normal">Name</p>
-                    <input className="border border-black border-solid" type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                    <input className="border border-black border-solid" type="text"
-                      value={role}
-                      onChange={(e) => setRole(e.target.value)}
-                    />
-                    <input className="border border-black border-solid" type="text"
-                      value={github}
-                      onChange={(e) => setGithub(e.target.value)}
-                    />
-                    <input className="border border-black border-solid" type="text"
-                      value={linkedin}
-                      onChange={(e) => setLinkedin(e.target.value)}
-                    />
-
-                    <button type="submit">edit</button>
-                    <div className="w-full flex justify-center pt-5 pb-5">
-                      <a href="" className="mx-5">
-                        <div>
-                          <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#718096" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-github">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                          </svg>
-                        </div>
-                      </a>
-                      <a href="" className="mx-5">
-                        <div>
-                          <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#718096" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-linkedin">
-                            <path d="M21 2H3C1.89 2 1 2.89 1 4V20C1 21.11 1.89 22 3 22H21C22.11 22 23 21.11 23 20V4C23 2.89 22.11 2 21 2Z" />
-                            <path d="M9 17H5V9H9V17Z" />
-                            <path d="M7 7C6.45 7 6 6.55 6 6C6 5.45 6.45 5 7 5C7.55 5 8 5.45 8 6C8 6.55 7.55 7 7 7Z" />
-                            <path d="M21 17H17V12.81C17 11.74 16.33 11 15.32 11C14.37 11 14 11.74 14 12.65V17H10V9H14V10.45C14.5 9.64 15.57 9 16.82 9C19.35 9 21 10.62 21 13.36V17Z" />
-                          </svg>
-
-                        </div>
-                      </a>
+        {about.map((aboutus) => (
+          <form onSubmit={(e) => handleTeam(e, aboutus)} className="w-full bg-gray-100 px-10 pt-10" key={aboutus.id}>
+            <div className="container mx-auto">
+              <div className="lg:flex md:flex sm:flex items-center xl:justify-between flex-wrap md:justify-around sm:justify-around lg:justify-around">
+                <div className="xl:w-1/3 sm:w-3/4 md:w-2/5 relative mt-16 mb-32 sm:mb-24 xl:max-w-sm lg:w-2/5">
+                  <div className="rounded overflow-hidden shadow-md bg-white">
+                    <div className="absolute -mt-20 w-full flex justify-center"></div>
+                    <div className="px-6 mt-16">
+                      <div className="font-bold text-3xl text-center pb-1">{aboutus.name}</div>
+                      <input type="text" placeholder="Type here" className="input input-bordered input-accent w-full max-w-xs" />
+                      <input
+                        className="border border-black border-solid"
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                      />
+                      <p className="text-gray-800 text-sm text-center">{aboutus.role}</p>
+                      <input
+                        className="border border-black border-solid"
+                        type="text"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                      />
+                      {/* <p className="text-center text-gray-600 text-base pt-3 font-normal">{about.description}</p> */}
+                      <div className="w-full flex justify-center pt-5 pb-5">
+                        <a href={aboutus.github} className="mx-5">
+                          <input
+                            className="border border-black border-solid"
+                            type="text"
+                            value={github}
+                            onChange={(e) => setGithub(e.target.value)}
+                          />
+                          <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#718096" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-github">
+                              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                            </svg>
+                          </div>
+                        </a>
+                        <a href={aboutus.linkedin} className="mx-5">
+                          <input
+                            className="border border-black border-solid"
+                            type="text"
+                            value={linkedin}
+                            onChange={(e) => setLinkedin(e.target.value)}
+                          />
+                          <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#718096" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-linkedin">
+                              <path d="M21 2H3C1.89 2 1 2.89 1 4V20C1 21.11 1.89 22 3 22H21C22.11 22 23 21.11 23 20V4C23 2.89 22.11 2 21 2Z" />
+                              <path d="M9 17H5V9H9V17Z" />
+                              <path d="M7 7C6.45 7 6 6.55 6 6C6 5.45 6.45 5 7 5C7.55 5 8 5.45 8 6C8 6.55 7.55 7 7 7Z" />
+                              <path d="M21 17H17V12.81C17 11.74 16.33 11 15.32 11C14.37 11 14 11.74 14 12.65V17H10V9H14V10.45C14.5 9.64 15.57 9 16.82 9C19.35 9 21 10.62 21 13.36V17Z" />
+                            </svg>
+                          </div>
+                        </a>
+                      </div>
                     </div>
+                    <button type="submit">ediiiit</button>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </form>
+        ))}
 
 
-      </form> */}
 
-
-      <div className="w-full max-w-xs">
-        <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-          onSubmit={handleTeam}
-        >
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="username"
-            >
-              Name
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="username"
-              type="text"
-              placeholder="Username"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="role"
-            >
-              Role
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="role"
-              type="text"
-              placeholder="Role"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="linkedin"
-            >
-              LinkedIn
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="linkedin"
-              type="text"
-              placeholder="LinkedIn"
-              value={linkedin}
-              onChange={(e) => setLinkedin(e.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="github"
-            >
-              GitHub
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="github"
-              type="text"
-              placeholder="GitHub"
-              value={github}
-              onChange={(e) => setGithub(e.target.value)}
-            />
-          </div>
-          <button type="submit">Edit</button>
-          <div className="flex items-center justify-between"></div>
-        </form>
       </div>
-
 
     </div>
   );

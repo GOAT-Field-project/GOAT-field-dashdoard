@@ -109,7 +109,7 @@ app.put("/contactus00/:id", async function (req, res) {
 app.get('/getTeam', async (req, res) => {
     try {
         const allTeamInfo = await pool.query("SELECT * FROM aboutus");
-        res.json(allTeamInfo.rows[0]);
+        res.json(allTeamInfo.rows);
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ error: 'Failed to fetch team data' });
@@ -204,7 +204,6 @@ app.get("/getdatas", (req, res) => {
         .query(query)
         .then((result) => {
             const pitches = result.rows.map((pitch) => {
-                //  buffer built in library 
                 const base64ImageDatas = pitch.images.map((imageData) =>
                     Buffer.from(imageData).toString("base64")
                 );
