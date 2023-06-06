@@ -13,6 +13,8 @@ import Pitches from "./pages/dashboard/pitches";
 import EditPitche from "./pages/dashboard/EditPitche";
 import Booking from "./pages/dashboard/booking";
 import ContactUs from "./pages/dashboard/ContactUs";
+// import Tables from "./pages/dashboard/AboutUs";
+import AboutUs from "./pages/dashboard/AboutUs";
 const icon = {
   className: "w-5 h-5 text-inherit",
 };
@@ -33,12 +35,7 @@ export const routes = [
       //   path: "/profile",
       //   element: <Profile />,
       // },
-      // {
-      //   icon: <TableCellsIcon {...icon} />,
-      //   name: "tables",
-      //   path: "/tables",
-      //   element: <Tables />,
-      // },
+
       {
         icon: <TableCellsIcon {...icon} />,
         name: "Users",
@@ -62,6 +59,12 @@ export const routes = [
         name: "Contact Us",
         path: "/ContactUs",
         element: <ContactUs />,
+      },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "AboutUs",
+        path: "/AboutUs",
+        element: <AboutUs />,
       },
       // {
       //   icon: <BellIcon {...icon} />,

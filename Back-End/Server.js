@@ -72,36 +72,82 @@ app.put('/mais/:user_id', async function (req, res) {
 
 // ! contact us form 
 
-// get contact data
-app.get('/getContact', async (req, res) => {
+
+// Get contact data
+app.get("/getContact", async (req, res) => {
     try {
-        const allContactInfo = await pool.query("SELECT * FROM contactus")
-        res.json(allContactInfo.rows)
+        const allContactInfo = await pool.query("SELECT * FROM contactus");
+        res.json(allContactInfo.rows);
     } catch (error) {
         console.log(error.message);
+        res.status(500).json({ error: "Internal Server Error" });
     }
-})
+});
 
-
-// ! update contact information
-// 
-
-
-app.put('/contactus00/:id', async function (req, res) {
-
+// Update contact information
+app.put("/contactus00/:id", async function (req, res) {
     try {
         const { id } = req.params;
         const { email, phone_number, location_link } = req.body;
 
-        const user = await pool.query("UPDATE contactus SET email = $1 ,phone_number = $2 , location_link = $3 WHERE id = $4 ", [email, phone_number, location_link, id]);
-        res.json(user.rows);
-        console.log(email)
-    }
-    catch (err) {
-        console.log(err.message);
-    }
+        const updatedContact = await pool.query(
+            "UPDATE contactus SET email = $1, phone_number = $2, location_link = $3 WHERE id = $4",
+            [email, phone_number, location_link, id]
+        );
 
+        res.json(updatedContact.rows);
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
 });
+
+
+
+
+//! get about team data
+app.get('/getTeam', async (req, res) => {
+    try {
+        const allTeamInfo = await pool.query("SELECT * FROM aboutus");
+        res.json(allTeamInfo.rows[0]);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ error: 'Failed to fetch team data' });
+    }
+});
+
+// ! update about team data
+app.put('/editTeam/:id', async function (req, res) {
+    try {
+        const { id } = req.params;
+        const { name, role, github, linkedin } = req.body;
+
+        await pool.query(
+            "UPDATE aboutus SET name = $1, role = $2, github = $3, linkedin = $4 WHERE id = $5",
+            [name, role, github, linkedin, id]
+        );
+
+        res.json({ message: 'Team data updated successfully' });
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ error: 'Failed to update team data' });
+    }
+});
+
+
+
+// //! updat vision about information
+// app.put('/editVision/:id', async function (req, res) {
+//     try {
+//         const { id } = req.params;
+//         const { title, vision } = req.body;
+//         const user = await pool.query("UPDATE visionAbout SET title = $1 ,vision = $2 WHERE id = $3 ", [title, vision, id]);
+//         res.json(user.rows);
+//     } catch (error) {
+//         console.log(error.message);
+
+//     }
+// })
 
 
 // ? -------------------------------- mais -------------------------------- 
