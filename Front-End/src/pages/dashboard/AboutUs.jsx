@@ -73,7 +73,7 @@ export function AboutUs() {
                   className="relative z-40 object-cover w-full h-96 lg:rounded-tr-[80px] lg:rounded-bl-[80px] rounded"
                 />
                 <div className="absolute z-10 hidden w-full h-full bg-[#82CD47] rounded-bl-[80px] rounded -bottom-6 right-6 lg:block"></div>
-                <div className="absolute z-50 text-[#82CD47] transform -translate-y-1/2 cursor-pointer top-1/2 left-[46%] hover:text-blue-500">
+                <div className="absolute z-50 text-[#82CD47] transform -translate-y-1/2 cursor-pointer top-1/2 left-[46%] hover:text-green-500">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width={16}
@@ -93,15 +93,15 @@ export function AboutUs() {
                 <h1 className="absolute -top-20   left-0 text-[20px] lg:text-[100px] text-gray-900 font-bold  dark:text-black opacity-5 md:block hidden">
                   About Us
                 </h1>
-                {/* <h1 className="pl-2 text-3xl font-bold border-l-8 border-[#82CD47] md:text-5xl text-black-300">
+                <h1 className="pl-2 text-3xl font-bold border-l-8 border-[#82CD47] md:text-5xl text-black-300">
                   Welcome to our site
-                </h1> */}
+                </h1>
                 {/* <input type="text" placeholder="edit title here" className="mt-10 border border-black border-solid border-radius-25 rounded-lg" /> */}
-                <input type="text" placeholder="Update title here" className="input input-bordered input-success w-full max-w-xs" />
+                {/* <input type="text" placeholder="Update title here" className="input input-bordered input-success w-full max-w-xs" /> */}
               </div>
               <p className="mt-6 mb-10 text-base leading-7 text-gray-800 dark:text-gray-800">
                 Welcome to our website, the leading platform for booking sports fields and playgrounds. We strive to provide a seamless and convenient experience for sports enthusiasts and athletes to reserve their preferred venues.</p>
-              <input type="text" placeholder="Update vision here" className="input input-bordered input-success w-full max-w-xs" />
+              {/* <input type="text" placeholder="Update vision here" className="input input-bordered input-success w-full max-w-xs" /> */}
 
             </div>
           </div>
