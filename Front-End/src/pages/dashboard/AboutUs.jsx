@@ -13,6 +13,9 @@ import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { authorsTableData, projectsTableData } from "@/data";
 import { useEffect, useState } from "react";
 import axios from "axios";
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+</style>
 
 export function AboutUs() {
   const [name, setName] = useState('');
@@ -57,7 +60,7 @@ export function AboutUs() {
 
 
   return (
-    <div>
+    <div style={{ fontFamily: 'Roboto Slab, serif' }}>
       <section className="flex items-center py-10 bg-stone-100 xl:h-screen font-poppins dark:bg-white-300"
       >
         <div className="justify-center flex-1 max-w-6xl py-4 mx-auto lg:py-6 md:px-6">
@@ -90,14 +93,15 @@ export function AboutUs() {
                 <h1 className="absolute -top-20   left-0 text-[20px] lg:text-[100px] text-gray-900 font-bold  dark:text-black opacity-5 md:block hidden">
                   About Us
                 </h1>
-                <h1 className="pl-2 text-3xl font-bold border-l-8 border-[#82CD47] md:text-5xl text-black-300">
+                {/* <h1 className="pl-2 text-3xl font-bold border-l-8 border-[#82CD47] md:text-5xl text-black-300">
                   Welcome to our site
-                </h1>
-                <input type="text" placeholder="edit title here" className="mt-10 border border-black border-solid border-radius-25 rounded-lg" />
+                </h1> */}
+                {/* <input type="text" placeholder="edit title here" className="mt-10 border border-black border-solid border-radius-25 rounded-lg" /> */}
+                <input type="text" placeholder="Update title here" className="input input-bordered input-success w-full max-w-xs" />
               </div>
               <p className="mt-6 mb-10 text-base leading-7 text-gray-800 dark:text-gray-800">
                 Welcome to our website, the leading platform for booking sports fields and playgrounds. We strive to provide a seamless and convenient experience for sports enthusiasts and athletes to reserve their preferred venues.</p>
-              <input type="text" placeholder="edit vision here" className="border border-black border-solid border-radius-25 rounded-lg" />
+              <input type="text" placeholder="Update vision here" className="input input-bordered input-success w-full max-w-xs" />
 
             </div>
           </div>
@@ -121,55 +125,34 @@ export function AboutUs() {
                   <div className="rounded overflow-hidden shadow-md bg-white">
                     <div className="absolute -mt-20 w-full flex justify-center"></div>
                     <div className="px-6 mt-16">
-                      <div className="font-bold text-3xl text-center pb-1">{aboutus.name}</div>
-                      <input type="text" placeholder="Type here" className="input input-bordered input-accent w-full max-w-xs" />
-                      <input
-                        className="border border-black border-solid"
-                        type="text"
+                      <div className="font-bold text-2xl text-center pb-1">{aboutus.name}</div>
+                      <input type="text" placeholder="Update name here" className="input input-bordered input-success w-full max-w-xs"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                       />
-                      <p className="text-gray-800 text-sm text-center">{aboutus.role}</p>
-                      <input
-                        className="border border-black border-solid"
-                        type="text"
+
+                      <h3 className="font-bold text-2xl text-center pb-1">{aboutus.role}</h3>
+
+                      <input type="text" placeholder="Update role here" className="input input-bordered input-success w-full max-w-xs"
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
                       />
-                      {/* <p className="text-center text-gray-600 text-base pt-3 font-normal">{about.description}</p> */}
-                      <div className="w-full flex justify-center pt-5 pb-5">
-                        <a href={aboutus.github} className="mx-5">
-                          <input
-                            className="border border-black border-solid"
-                            type="text"
-                            value={github}
-                            onChange={(e) => setGithub(e.target.value)}
-                          />
-                          <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#718096" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-github">
-                              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                            </svg>
-                          </div>
-                        </a>
-                        <a href={aboutus.linkedin} className="mx-5">
-                          <input
-                            className="border border-black border-solid"
-                            type="text"
-                            value={linkedin}
-                            onChange={(e) => setLinkedin(e.target.value)}
-                          />
-                          <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#718096" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-linkedin">
-                              <path d="M21 2H3C1.89 2 1 2.89 1 4V20C1 21.11 1.89 22 3 22H21C22.11 22 23 21.11 23 20V4C23 2.89 22.11 2 21 2Z" />
-                              <path d="M9 17H5V9H9V17Z" />
-                              <path d="M7 7C6.45 7 6 6.55 6 6C6 5.45 6.45 5 7 5C7.55 5 8 5.45 8 6C8 6.55 7.55 7 7 7Z" />
-                              <path d="M21 17H17V12.81C17 11.74 16.33 11 15.32 11C14.37 11 14 11.74 14 12.65V17H10V9H14V10.45C14.5 9.64 15.57 9 16.82 9C19.35 9 21 10.62 21 13.36V17Z" />
-                            </svg>
-                          </div>
-                        </a>
-                      </div>
+                      <h3 className="font-bold text-2xl text-center pb-1">github</h3>
+
+                      <input type="text" placeholder="Update github Link here" className="input input-bordered input-success w-full max-w-xs"
+                        value={github}
+                        onChange={(e) => setGithub(e.target.value)}
+                      />
+                      <h3 className="font-bold text-2xl text-center pb-1">Linkedin</h3>
+
+                      <input type="text" placeholder="Update Linkedin Link here" className="input input-bordered input-success w-full max-w-xs"
+                        value={linkedin}
+                        onChange={(e) => setLinkedin(e.target.value)}
+                      />
                     </div>
-                    <button type="submit">ediiiit</button>
+                    <div className="flex flex-wrap justify-center mt-5 mb-5">
+                      <button className="flex btn btn-outline btn-success w-20 bg-black">Update</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -181,7 +164,7 @@ export function AboutUs() {
 
       </div>
 
-    </div>
+    </div >
   );
 }
 
