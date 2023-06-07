@@ -61,7 +61,7 @@ export function AboutUs() {
 
   return (
     <div style={{ fontFamily: 'Roboto Slab, serif' }}>
-      <section className="flex items-center py-10 bg-stone-100 xl:h-screen font-poppins dark:bg-white-300"
+      {/* <section className="flex items-center py-10 bg-stone-100 xl:h-screen font-poppins dark:bg-white-300"
       >
         <div className="justify-center flex-1 max-w-6xl py-4 mx-auto lg:py-6 md:px-6">
           <div className="flex flex-wrap ">
@@ -96,73 +96,71 @@ export function AboutUs() {
                 <h1 className="pl-2 text-3xl font-bold border-l-8 border-[#82CD47] md:text-5xl text-black-300">
                   Welcome to our site
                 </h1>
-                {/* <input type="text" placeholder="edit title here" className="mt-10 border border-black border-solid border-radius-25 rounded-lg" /> */}
-                {/* <input type="text" placeholder="Update title here" className="input input-bordered input-success w-full max-w-xs" /> */}
               </div>
               <p className="mt-6 mb-10 text-base leading-7 text-gray-800 dark:text-gray-800">
                 Welcome to our website, the leading platform for booking sports fields and playgrounds. We strive to provide a seamless and convenient experience for sports enthusiasts and athletes to reserve their preferred venues.</p>
-              {/* <input type="text" placeholder="Update vision here" className="input input-bordered input-success w-full max-w-xs" /> */}
-
-            </div>
-          </div>
-        </div>
-      </section >
+            </div >
+          </div >
+        </div >
+      </section > */}
 
 
 
-      <div>
+      <div div >
         <div className="container flex justify-center mx-auto pt-16">
           <div>
-            <p className="text-gray-500 text-lg text-center font-normal pb-3">Meet our team</p>
+            <p className="text-black-500 text-lg text-center font-normal pb-3">Edit Meet our team section</p>
             <h1 className="xl:text-4xl text-3xl text-center text-gray-800 font-extrabold pb-6 sm:w-4/6 w-5/6 mx-auto">Those who work behind the scene</h1>
           </div>
         </div>
-        {about.map((aboutus) => (
-          <form onSubmit={(e) => handleTeam(e, aboutus)} className="w-full bg-gray-100 px-10 pt-10" key={aboutus.id}>
-            <div className="container mx-auto">
-              <div className="lg:flex md:flex sm:flex items-center xl:justify-between flex-wrap md:justify-around sm:justify-around lg:justify-around">
-                <div className="xl:w-1/3 sm:w-3/4 md:w-2/5 relative mt-16 mb-32 sm:mb-24 xl:max-w-sm lg:w-2/5">
-                  <div className="rounded overflow-hidden shadow-md bg-white">
-                    <div className="absolute -mt-20 w-full flex justify-center"></div>
-                    <div className="px-6 mt-16">
-                      <div className="font-bold text-2xl text-center pb-1">{aboutus.name}</div>
-                      <input type="text" placeholder="Update name here" className="input input-bordered input-success w-full max-w-xs"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                      />
+        {
+          about.map((aboutus) => (
+            <form onSubmit={(e) => handleTeam(e, aboutus)} className="w-full px-10" key={aboutus.id}>
+              <div className="container mx-auto">
+                <div className="lg:flex md:flex sm:flex items-center xl:justify-between flex-wrap md:justify-around sm:justify-around lg:justify-around">
+                  <div className="xl:w-1/3 sm:w-3/4 md:w-2/5 relative mt-16 mb-32 sm:mb-24 xl:max-w-sm lg:w-2/5">
+                    <div className="rounded overflow-hidden shadow-md bg-white">
+                      <div className="absolute -mt-20 w-full flex justify-center"></div>
+                      <div className="px-6 mt-16">
+                        <div className="font-bold text-2xl text-center pb-1">{aboutus.name}</div>
+                        <input type="text" placeholder="Update name here" className="input input-bordered input-success w-full max-w-xs"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                        />
 
-                      <h3 className="font-bold text-2xl text-center pb-1">{aboutus.role}</h3>
+                        <h3 className="font-bold text-2xl text-center pb-1">{aboutus.role}</h3>
 
-                      <input type="text" placeholder="Update role here" className="input input-bordered input-success w-full max-w-xs"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                      />
-                      <h3 className="font-bold text-2xl text-center pb-1">github</h3>
+                        <input type="text" placeholder="Update role here" className="input input-bordered input-success w-full max-w-xs"
+                          value={role}
+                          onChange={(e) => setRole(e.target.value)}
+                        />
+                        <h3 className="font-bold text-2xl text-center pb-1">github</h3>
 
-                      <input type="text" placeholder="Update github Link here" className="input input-bordered input-success w-full max-w-xs"
-                        value={github}
-                        onChange={(e) => setGithub(e.target.value)}
-                      />
-                      <h3 className="font-bold text-2xl text-center pb-1">Linkedin</h3>
+                        <input type="text" placeholder="Update github Link here" className="input input-bordered input-success w-full max-w-xs"
+                          value={github}
+                          onChange={(e) => setGithub(e.target.value)}
+                        />
+                        <h3 className="font-bold text-2xl text-center pb-1">Linkedin</h3>
 
-                      <input type="text" placeholder="Update Linkedin Link here" className="input input-bordered input-success w-full max-w-xs"
-                        value={linkedin}
-                        onChange={(e) => setLinkedin(e.target.value)}
-                      />
-                    </div>
-                    <div className="flex flex-wrap justify-center mt-5 mb-5">
-                      <button className="flex btn btn-outline btn-success w-20 bg-black">Update</button>
+                        <input type="text" placeholder="Update Linkedin Link here" className="input input-bordered input-success w-full max-w-xs"
+                          value={linkedin}
+                          onChange={(e) => setLinkedin(e.target.value)}
+                        />
+                      </div>
+                      <div className="flex flex-wrap justify-center mt-5 mb-5">
+                        <button className="flex btn btn-outline btn-success w-20 bg-black">Update</button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </form>
-        ))}
+            </form>
+          ))
+        }
 
 
 
-      </div>
+      </div >
 
     </div >
   );
