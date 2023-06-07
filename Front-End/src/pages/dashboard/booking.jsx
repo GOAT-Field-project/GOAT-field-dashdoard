@@ -83,9 +83,7 @@ export function Booking() {
               href='booking/add'
               className="text-xs font-semibold text-blue-gray-600 justify-center"
             >
-              <Button color="blue-gray" size="sm">
-                Add Booking
-              </Button>
+             
             </Typography>
           </div>
         </CardHeader>
@@ -95,7 +93,7 @@ export function Booking() {
           <table className="w-full min-w-[640px] table-auto">
             <thead>
               <tr>
-                {["bookingID", " userName", "pitchName", "date", "time", "phone", "Action"].map((el) => (
+                {["bookingID", " userName", "user_id", "date", "time", "phone", "Action"].map((el) => (
                   <th
                     key={el}
                     className="border-b border-blue-gray-50 py-3 px-5 text-left"
@@ -165,17 +163,7 @@ export function Booking() {
 
                       <td className={className}>
                         <div className="grid grid-cols-2 gap-2 justify-center">
-                          <div className="justify-center">
-                            <Typography
-                              as="a"
-                              href={'booking/edit/' + id}
-                              className="text-xs font-semibold text-blue-gray-600 justify-center"
-                            >
-                              <IconButton ripple={true} color="green">
-                                <i className="fa-regular fa-pen-to-square"></i>
-                              </IconButton>
-                            </Typography>
-                          </div>
+                        
                           <div className="justify-center">
                             
 
