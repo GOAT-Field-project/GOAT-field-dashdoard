@@ -83,9 +83,7 @@ export function Booking() {
               href='booking/add'
               className="text-xs font-semibold text-blue-gray-600 justify-center"
             >
-              <Button color="blue-gray" size="sm">
-                Add Booking
-              </Button>
+             
             </Typography>
           </div>
         </CardHeader>
@@ -165,17 +163,7 @@ export function Booking() {
 
                       <td className={className}>
                         <div className="grid grid-cols-2 gap-2 justify-center">
-                          <div className="justify-center">
-                            <Typography
-                              as="a"
-                              href={'booking/edit/' + id}
-                              className="text-xs font-semibold text-blue-gray-600 justify-center"
-                            >
-                              <IconButton ripple={true} color="green">
-                                <i className="fa-regular fa-pen-to-square"></i>
-                              </IconButton>
-                            </Typography>
-                          </div>
+                        
                           <div className="justify-center">
                             
 
