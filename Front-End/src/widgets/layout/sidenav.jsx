@@ -73,13 +73,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
                     <Button 
                     
                       variant={isActive ? "gradient" : "text"}
-                      color={ 
-                        isActive
-                          ? "from-green-400 to-green-600"
-                          : sidenavType === "dark"
-                          ? "white"
-                          : "blue-gray"
-                      }
+                      color={isActive ? "green" : "white"}
                       className="flex items-center gap-4 px-4 capitalize"
                       fullWidth
                     >
@@ -104,7 +98,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
 }
 
 Sidenav.defaultProps = {
-  brandImg: "/img/logo-ct.png",
+  // brandImg: "/img/logo-ct.png",
   brandName: "GOAT Field",
 };
 
