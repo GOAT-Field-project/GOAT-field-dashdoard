@@ -113,70 +113,73 @@ export function AboutUs() {
             <h1 className="xl:text-4xl text-3xl text-center text-gray-800 font-extrabold pb-6 sm:w-4/6 w-5/6 mx-auto">Those who work behind the scene</h1>
           </div>
         </div>
-        {about.map((aboutus) => (
-          <form onSubmit={(e) => handleTeam(e, aboutus)} className="w-full bg-gray-100 px-10 pt-10" key={aboutus.id}>
-            <div className="container mx-auto">
-              <div className="lg:flex md:flex sm:flex items-center xl:justify-between flex-wrap md:justify-around sm:justify-around lg:justify-around">
-                <div className="xl:w-1/3 sm:w-3/4 md:w-2/5 relative mt-16 mb-32 sm:mb-24 xl:max-w-sm lg:w-2/5">
-                  <div className="rounded overflow-hidden shadow-md bg-white">
-                    <div className="absolute -mt-20 w-full flex justify-center"></div>
-                    <div className="px-6 mt-16">
-                      <div className="font-bold text-3xl text-center pb-1">{aboutus.name}</div>
-                      <input type="text" placeholder="Type here" className="input input-bordered input-accent w-full max-w-xs" />
-                      <input
-                        className="border border-black border-solid"
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                      <p className="text-gray-800 text-sm text-center">{aboutus.role}</p>
-                      <input
-                        className="border border-black border-solid"
-                        type="text"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                      />
-                      {/* <p className="text-center text-gray-600 text-base pt-3 font-normal">{about.description}</p> */}
-                      <div className="w-full flex justify-center pt-5 pb-5">
-                        <a href={aboutus.github} className="mx-5">
-                          <input
-                            className="border border-black border-solid"
-                            type="text"
-                            value={github}
-                            onChange={(e) => setGithub(e.target.value)}
-                          />
-                          <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#718096" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-github">
-                              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                            </svg>
-                          </div>
-                        </a>
-                        <a href={aboutus.linkedin} className="mx-5">
-                          <input
-                            className="border border-black border-solid"
-                            type="text"
-                            value={linkedin}
-                            onChange={(e) => setLinkedin(e.target.value)}
-                          />
-                          <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#718096" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-linkedin">
-                              <path d="M21 2H3C1.89 2 1 2.89 1 4V20C1 21.11 1.89 22 3 22H21C22.11 22 23 21.11 23 20V4C23 2.89 22.11 2 21 2Z" />
-                              <path d="M9 17H5V9H9V17Z" />
-                              <path d="M7 7C6.45 7 6 6.55 6 6C6 5.45 6.45 5 7 5C7.55 5 8 5.45 8 6C8 6.55 7.55 7 7 7Z" />
-                              <path d="M21 17H17V12.81C17 11.74 16.33 11 15.32 11C14.37 11 14 11.74 14 12.65V17H10V9H14V10.45C14.5 9.64 15.57 9 16.82 9C19.35 9 21 10.62 21 13.36V17Z" />
-                            </svg>
-                          </div>
-                        </a>
+        <div className="flex flex-wrap justify-center">
+          {about.map((aboutus) => (
+            <form onSubmit={(e) => handleTeam(e, aboutus)} className=" bg-gray-100 px-10 pt-10" key={aboutus.id}>
+              <div className=" ">
+                <div className="lg:flex md:flex sm:flex items-center xl:justify-between flex-wrap md:justify-around sm:justify-around lg:justify-around">
+                  <div className="relative sm:mb-24">
+                    <div className="rounded overflow-hidden shadow-md bg-white">
+                      <div className="absolute -mt-20 w-full flex justify-center"></div>
+                      <div className="px-6 mt-16">
+                        <div className="font-bold text-3xl text-center pb-1">{aboutus.name}</div>
+                        <input type="text" placeholder="Type here" className="input input-bordered input-accent w-full max-w-xs" />
+                        <input
+                          className="border border-black border-solid"
+                          type="text"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                        />
+                        <p className="text-gray-800 text-sm text-center">{aboutus.role}</p>
+                        <input
+                          className="border border-black border-solid"
+                          type="text"
+                          value={role}
+                          onChange={(e) => setRole(e.target.value)}
+                        />
+                        {/* <p className="text-center text-gray-600 text-base pt-3 font-normal">{about.description}</p> */}
+                        <div className="w-full flex justify-center pt-5 pb-5">
+                          <a href={aboutus.github} className="mx-5">
+                            <input
+                              className="border border-black border-solid"
+                              type="text"
+                              value={github}
+                              onChange={(e) => setGithub(e.target.value)}
+                            />
+                            <div>
+                              <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#718096" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-github">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                              </svg>
+                            </div>
+                          </a>
+                          <a href={aboutus.linkedin} className="mx-5">
+                            <input
+                              className="border border-black border-solid"
+                              type="text"
+                              value={linkedin}
+                              onChange={(e) => setLinkedin(e.target.value)}
+                            />
+                            <div>
+                              <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="#718096" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-linkedin">
+                                <path d="M21 2H3C1.89 2 1 2.89 1 4V20C1 21.11 1.89 22 3 22H21C22.11 22 23 21.11 23 20V4C23 2.89 22.11 2 21 2Z" />
+                                <path d="M9 17H5V9H9V17Z" />
+                                <path d="M7 7C6.45 7 6 6.55 6 6C6 5.45 6.45 5 7 5C7.55 5 8 5.45 8 6C8 6.55 7.55 7 7 7Z" />
+                                <path d="M21 17H17V12.81C17 11.74 16.33 11 15.32 11C14.37 11 14 11.74 14 12.65V17H10V9H14V10.45C14.5 9.64 15.57 9 16.82 9C19.35 9 21 10.62 21 13.36V17Z" />
+                              </svg>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                      <div className="flex justify-center mb-3">
+                      <button type="submit" className="px-6 py-2 text-white bg-green-400 hover:bg-white hover:text-black border-2 rounded ">Edit</button>
                       </div>
                     </div>
-                    <button type="submit">ediiiit</button>
                   </div>
                 </div>
               </div>
-            </div>
-          </form>
-        ))}
-
+            </form>
+          ))}
+        </div>
 
 
       </div>
