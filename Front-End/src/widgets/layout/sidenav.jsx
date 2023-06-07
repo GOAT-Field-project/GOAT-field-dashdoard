@@ -12,7 +12,7 @@ import { useMaterialTailwindController, setOpenSidenav } from "@/context";
 export function Sidenav({ brandImg, brandName, routes }) {
   const [controller, dispatch] = useMaterialTailwindController();
   const { sidenavColor, sidenavType, openSidenav } = controller;
- 
+
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-blue-gray-800 to-blue-gray-900",
     white: "bg-white shadow-lg",
@@ -21,20 +21,19 @@ export function Sidenav({ brandImg, brandName, routes }) {
 
   return (
     <aside
-      className={`${sidenavTypes[sidenavType]} ${
-        openSidenav ? "translate-x-0" : "-translate-x-80"
-      } fixed inset-0 z-50 my-4 ml-4 h-[calc(140vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0`}
+      className={`${sidenavTypes[sidenavType]} ${openSidenav ? "translate-x-0" : "-translate-x-80"
+        } fixed inset-0 z-50 my-4 ml-4 h-[calc(140vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0`}
     >
       <div
-        className={`relative border-b ${
-          sidenavType === "dark" ? "border-white/20" : "border-blue-gray-50"
-        }`}
+        className={`relative border-b ${sidenavType === "dark" ? "border-white/20" : "border-blue-gray-50"
+          }`}
       >
         <Link to="/" className="flex items-center gap-4 py-6 px-8">
-          <Avatar src={brandImg} size="sm" />
+          <Avatar src="/img/goatlogo.png" size="md" />
           <Typography
             variant="h6"
             color={sidenavType === "dark" ? "white" : "blue-gray"}
+            className="text-xl"
           >
             {brandName}
           </Typography>
@@ -47,7 +46,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
           className="absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden"
           onClick={() => setOpenSidenav(dispatch, false)}
         >
-        <XMarkIcon strokeWidth={2.5} className="h-5 w-5 text-white" />
+          <XMarkIcon strokeWidth={2.5} className="h-5 w-5 text-white" />
         </IconButton>
       </div>
       <div className="m-4">
@@ -65,13 +64,13 @@ export function Sidenav({ brandImg, brandName, routes }) {
               </li>
             )}
             {pages.map(({ icon, name, path }) => (
-            //  ({hidden} == ture) => (
-              
+              //  ({hidden} == ture) => (
+
               <li key={name}>
                 <NavLink to={`/${layout}${path}`}>
                   {({ isActive }) => (
-                    <Button 
-                    
+                    <Button
+
                       variant={isActive ? "gradient" : "text"}
                       color={isActive ? "green" : "white"}
                       className="flex items-center gap-4 px-4 capitalize"
@@ -88,7 +87,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
                   )}
                 </NavLink>
               </li>
-              
+
             ))}
           </ul>
         ))}
@@ -98,7 +97,7 @@ export function Sidenav({ brandImg, brandName, routes }) {
 }
 
 Sidenav.defaultProps = {
-  // brandImg: "/img/logo-ct.png",
+  brandImg: "/img/logo-ct.png",
   brandName: "GOAT Field",
 };
 
