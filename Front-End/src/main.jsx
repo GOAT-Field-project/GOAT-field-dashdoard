@@ -20,11 +20,13 @@ import "../public/css/tailwind.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
+    <div className="bg-white">
       <ThemeProvider>
         <MaterialTailwindControllerProvider>
           <App />
         </MaterialTailwindControllerProvider>
       </ThemeProvider>
+      </div>
     </BrowserRouter>
   </React.StrictMode>
 );

@@ -117,9 +117,7 @@ const ContactForm = () => {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)} />
                       </div>
-                      <div className="flex flex-wrap justify-center">
-                        <button className="flex btn btn-outline btn-success w-20 bg-black">Update</button>
-                      </div>
+                     
                     </div>
 
                     <div className="overflow-hidden bg-white rounded-xl">
@@ -158,7 +156,9 @@ const ContactForm = () => {
 
                   </div>
                 </div>
-
+                <div className="flex flex-wrap justify-center mt-5">
+                        <button className="flex btn btn-outline btn-success w-20 bg-black">Update</button>
+                      </div>
 
 
               </div>
